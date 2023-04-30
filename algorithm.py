@@ -6,8 +6,9 @@ from board import Board
 
 def search_with_min_max(player_id: int, board: Board) -> Dict[str, int]:
     dp = {}
+    original_player_id = player_id
 
-    def _evaluate(player_id: int, board: Board, original_player_id: int) -> Dict[str, int]:
+    def _evaluate(player_id: int, board: Board) -> Dict[str, int]:
         value = dp.get("|".join([str(i) for i in board.data]) + f"_{player_id}")
         if value is not None:
             return value
@@ -27,9 +28,7 @@ def search_with_min_max(player_id: int, board: Board) -> Dict[str, int]:
 
             new_player_id = player_id if act_again else (player_id + 1) % board.players_num
 
-            eval_tables[action] = _evaluate(
-                player_id=new_player_id, board=tmp_board, original_player_id=original_player_id
-            )["value"]
+            eval_tables[action] = _evaluate(player_id=new_player_id, board=tmp_board)["value"]
 
         if result is None:
             if player_id == original_player_id:
@@ -42,9 +41,9 @@ def search_with_min_max(player_id: int, board: Board) -> Dict[str, int]:
         dp["|".join([str(i) for i in board.data]) + f"_{player_id}"] = result
         return result
 
-    return _evaluate(player_id=player_id, board=board, original_player_id=player_id)
+    return _evaluate(player_id=player_id, board=board)
 
 
 if __name__ == "__main__":
-    board = Board(grids_per_player=3, init_pieces_per_grid=3, grids_between_players=2)
+    board = Board(grids_per_player=3, init_pieces_per_grid=3, grids_between_players=3)
     print(search_with_min_max(player_id=0, board=board))

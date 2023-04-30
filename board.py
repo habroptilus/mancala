@@ -40,12 +40,15 @@ class Board:
             raise ValueError(f"The grid with index={index} has no pieces.")
 
         for i in range(1, pieces + 1):
-            index_to_be_incremented = (index + i) % len(self.data)
+            index_to_be_incremented = self._add_index(index, i)
             self.data[index_to_be_incremented] += 1
 
         self.data[index] = 0
 
-        return self._is_grids_between_players(index + pieces)
+        return self._is_grids_between_players(self._add_index(index, pieces))
+    
+    def _add_index(self, index, diff):
+        return (index+diff)%len(self.data)
 
     def _is_grids_between_players(self, index: int):
         return index % (self.grids_per_player + self.grids_between_players) > self.grids_per_player

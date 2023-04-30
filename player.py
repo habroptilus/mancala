@@ -20,3 +20,24 @@ class RandomPlayer(Player):
     def act(self, board: Board) -> int:
         candidates: List = list(board.get_players_movable_grids(self.player_id).keys())
         return random.choice(candidates)
+
+
+class Human(Player):
+    """Grid is chosen by human interactively."""
+
+    def act(self,board: Board) -> int:
+        candidates=board.get_players_movable_grids(player_id=self.player_id)
+        while True:
+            raw_input=input(f"You can choose from {candidates}: ")
+            try:
+                result=int(raw_input)
+            except ValueError as e:
+                print(f"Invalid input {result}. Input should be Integer.")
+                continue
+            if result not in candidates:
+                print(f"Invalid input {result}. Input should be from {list(candidates.keys())}.")
+                continue
+            return result
+
+        
+

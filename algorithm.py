@@ -8,7 +8,7 @@ def search_with_min_max(player_id: int, board: Board) -> Dict[str, int]:
     dp = {}
 
     def _evaluate(player_id: int, board: Board, original_player_id: int) -> Dict[str, int]:
-        value = dp.get("|".join([str(i) for i in board.data]))
+        value = dp.get("|".join([str(i) for i in board.data]) + f"_{player_id}")
         if value is not None:
             return value
 
@@ -39,12 +39,12 @@ def search_with_min_max(player_id: int, board: Board) -> Dict[str, int]:
 
             result = {"action": best_action, "value": eval_tables[best_action]}
 
-        dp["|".join([str(i) for i in board.data])] = result
+        dp["|".join([str(i) for i in board.data]) + f"_{player_id}"] = result
         return result
 
     return _evaluate(player_id=player_id, board=board, original_player_id=player_id)
 
 
 if __name__ == "__main__":
-    board = Board()
+    board = Board(grids_per_player=3, init_pieces_per_grid=3, grids_between_players=1)
     print(search_with_min_max(player_id=0, board=board))

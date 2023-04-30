@@ -59,4 +59,5 @@ if __name__ == "__main__":
 
     game = Game(player_classes=[MinMaxPlayer, MinMaxPlayer])
 
-    game.run()
+    winner = game.run()
+    print(f"winner: {winner}")

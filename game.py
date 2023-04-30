@@ -57,7 +57,7 @@ class Game:
 if __name__ == "__main__":
     from player import Human, MinMaxPlayer, RandomPlayer
 
-    game = Game(player_classes=[MinMaxPlayer, MinMaxPlayer])
+    game = Game(player_classes=[MinMaxPlayer, MinMaxPlayer], grids_between_players=2)
 
     winner = game.run()
     print(f"winner: {winner}")

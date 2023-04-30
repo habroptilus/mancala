@@ -46,5 +46,5 @@ def search_with_min_max(player_id: int, board: Board) -> Dict[str, int]:
 
 
 if __name__ == "__main__":
-    board = Board(grids_per_player=3, init_pieces_per_grid=3, grids_between_players=1)
+    board = Board(grids_per_player=3, init_pieces_per_grid=3, grids_between_players=2)
     print(search_with_min_max(player_id=0, board=board))

@@ -11,5 +11,5 @@
     },
     "[python]": {
         "files.trimTrailingWhitespace": false
-    },
+    }
 }

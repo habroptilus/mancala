@@ -55,8 +55,8 @@ class Game:
 
 
 if __name__ == "__main__":
-    from player import Human, RandomPlayer
+    from player import Human, MinMaxPlayer, RandomPlayer
 
-    game = Game(player_classes=[Human, RandomPlayer])
+    game = Game(player_classes=[MinMaxPlayer, MinMaxPlayer])
 
     game.run()

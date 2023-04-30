@@ -25,10 +25,10 @@ def search_with_min_max(player_id: int, board: Board) -> Dict[str, int]:
                     result = {"action": action, "value": -1}
                 break
 
-            if not act_again:
-                player_id = (player_id + 1) % board.players_num
+            new_player_id = player_id if act_again else (player_id + 1) % board.players_num
+
             eval_tables[action] = _evaluate(
-                player_id=player_id, board=tmp_board, original_player_id=original_player_id
+                player_id=new_player_id, board=tmp_board, original_player_id=original_player_id
             )["value"]
 
         if result is None:

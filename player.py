@@ -3,6 +3,7 @@ from abc import ABCMeta, abstractmethod
 from typing import Dict, List
 
 from board import Board
+from utils import search_with_min_max
 
 
 class Player(metaclass=ABCMeta):
@@ -39,3 +40,12 @@ class Human(Player):
                 print(f"Invalid input {result}. Input should be from {list(candidates.keys())}.")
                 continue
             return result
+
+
+class MinMaxPlayer(Player):
+    """Choose grid based on min-max algorithm."""
+
+    def act(self, board: Board) -> int:
+        result: Dict[str, int] = search_with_min_max(player_id=self.player_id, board=board)
+        print(f"Evaluation: {result['value']}")
+        return result["action"]

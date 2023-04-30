@@ -69,4 +69,8 @@ class Board:
         return len(movable_grids) == 0
 
     def print_board(self):
-        print(self.data)
+        for i in range(self.players_num):
+            player_start_grid = self.get_player_start_index(i)
+            player_last_grid = player_start_grid + self.grids_per_player
+            print(self.data[player_start_grid:player_last_grid])
+            print(self.data[player_last_grid : player_last_grid + self.grids_between_players])

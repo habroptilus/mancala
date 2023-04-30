@@ -28,11 +28,12 @@ class Human(Player):
     def act(self, board: Board) -> int:
         candidates: Dict = board.get_players_movable_grids(player_id=self.player_id)
         while True:
+            board.print_board()
             raw_input = input(f"You can choose from {candidates}: ")
             try:
                 result = int(raw_input)
             except ValueError:
-                print(f"Invalid input {result}. Input should be Integer.")
+                print(f"Invalid input {raw_input}. Input should be Integer.")
                 continue
             if result not in candidates:
                 print(f"Invalid input {result}. Input should be from {list(candidates.keys())}.")

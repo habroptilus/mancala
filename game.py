@@ -13,6 +13,8 @@ class Game:
         grids_between_players: int = 1,
         max_turns: int = 100,
     ):
+        if not len(player_classes) > 1:
+            raise ValueError("Players should be more than 2.")
         players = [player_class(player_id=i) for i, player_class in enumerate(player_classes)]
         players_num = len(players)
         self.players_num = players_num
@@ -35,11 +37,13 @@ class Game:
             for player in self.players:
                 self.board.print_board()
                 print(f"Player {player.player_id}")
-                index = player.act(self.board)
-                print(f"Action {index}")
-                while self.board.move(index=index):
+                while True:
                     index = player.act(self.board)
                     print(f"Action {index}")
+                    act_again = self.board.move(index=index)
+                    if not act_again:
+                        break
+
                 if self.board.does_player_win(player.player_id):
                     print(f"Player {player.player_id} wins!")
                     self.board.print_board()
@@ -51,8 +55,8 @@ class Game:
 
 
 if __name__ == "__main__":
-    from player import RandomPlayer, Human
+    from player import Human, RandomPlayer
 
-    game = Game(player_classes=[RandomPlayer, Human])
+    game = Game(player_classes=[Human, RandomPlayer])
 
     game.run()

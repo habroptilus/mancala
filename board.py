@@ -31,7 +31,7 @@ class Board:
         """
         if index >= len(self.data):
             raise ValueError(f"Invalid index: {index}. index should satisfy index < {len(self.data)}")
-        if self._is_grids_between_players(index):
+        if self._is_grid_between_players(index):
             raise ValueError(f"Invalid index: {index}. The index points grids between players.")
 
         pieces = self.data[index]
@@ -45,13 +45,13 @@ class Board:
 
         self.data[index] = 0
 
-        return self._is_grids_between_players(self._add_index(index, pieces))
+        return self._is_grid_between_players(self._add_index(index, pieces))
 
     def _add_index(self, index, diff):
         return (index + diff) % len(self.data)
 
     def _is_grid_between_players(self, index: int):
-        return index % (self.grids_per_player + self.grids_between_players) > self.grids_per_player
+        return index % (self.grids_per_player + self.grids_between_players) >= self.grids_per_player
 
     def get_players_grids(self, player_id: int) -> Dict[int, int]:
         start_index = self.get_player_start_index(player_id=player_id)

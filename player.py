@@ -1,6 +1,6 @@
 import random
 from abc import ABCMeta, abstractmethod
-from typing import List
+from typing import Dict, List
 
 from board import Board
 
@@ -18,7 +18,7 @@ class RandomPlayer(Player):
     """Choose grid randomly."""
 
     def act(self, board: Board) -> int:
-        candidates: List = board.get_players_movable_grids(player=self.player_id)
+        candidates: List = list(board.get_players_movable_grids(player_id=self.player_id).keys())
         return random.choice(candidates)
 
 
@@ -26,7 +26,7 @@ class Human(Player):
     """Grid is chosen by human interactively."""
 
     def act(self, board: Board) -> int:
-        candidates: List = board.get_players_movable_grids(player_id=self.player_id)
+        candidates: Dict = board.get_players_movable_grids(player_id=self.player_id)
         while True:
             raw_input = input(f"You can choose from {candidates}: ")
             try:

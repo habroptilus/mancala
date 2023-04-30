@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict
 
 INITIAL_PIECES_FOR_GRIDS_BETWEEN_PLAYERS = 0
 
@@ -46,11 +46,11 @@ class Board:
         self.data[index] = 0
 
         return self._is_grids_between_players(self._add_index(index, pieces))
-    
-    def _add_index(self, index, diff):
-        return (index+diff)%len(self.data)
 
-    def _is_grids_between_players(self, index: int):
+    def _add_index(self, index, diff):
+        return (index + diff) % len(self.data)
+
+    def _is_grid_between_players(self, index: int):
         return index % (self.grids_per_player + self.grids_between_players) > self.grids_per_player
 
     def get_players_grids(self, player_id: int) -> Dict[int, int]:
@@ -60,7 +60,7 @@ class Board:
     def get_player_start_index(self, player_id: int) -> int:
         return player_id * (self.grids_per_player + self.grids_between_players)
 
-    def get_players_movable_grids(self, player_id: int) -> List[int]:
+    def get_players_movable_grids(self, player_id: int) -> Dict[int, int]:
         players_grids = self.get_players_grids(player_id=player_id)
         return {key: value for key, value in players_grids.items() if value > 0}
 
